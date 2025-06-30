@@ -1,0 +1,38 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="Email" required><br><br>
+    <input type="password" id="loginPassword" placeholder="Password" required><br><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="loginMessage"></p>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      const userData = localStorage.getItem(email);
+      if (!userData) {
+        document.getElementById("loginMessage").textContent = "User not found.";
+        return;
+      }
+
+      const user = JSON.parse(userData);
+      if (user.password === password) {
+        document.getElementById("loginMessage").textContent = "Login successful!";
+      } else {
+        document.getElementById("loginMessage").textContent = "Invalid password.";
+      }
+    });
+  </script>
+</body>
+</html>
